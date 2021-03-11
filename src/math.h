@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdlib>
 
-constexpr float MY_PI = 3.1415926f;
+constexpr float PI = 3.1415926f;
 
 template <class T, int size>
 class Vector
@@ -55,8 +55,15 @@ template <class T, int size>
 class Matrix
 {
 public:
-	Matrix() : val(size* size) {  }
+	Matrix() : val(size* size) 
+	{ 
+		for(int i = 0; i < size; ++i)
+			for(int j = 0; j < size; ++j)
+				if(i == j)
+					val[i * size + j] = 1;
+	}
 	Matrix(T v[]);
+	Matrix(vector<T> &v) { val = v }
 	std::vector<T> operator[](std::size_t n);
 	const std::vector<T> operator[](std::size_t n) const;
 
@@ -74,7 +81,7 @@ public:
 	Matrix inverse();
 
 private:
-	std::vector<float> val;
+	std::vector<T> val;
 
 	void getCofactor(float A[size][size], float temp[size][size], int p, int q, int n);
 	float determinant(float A[size][size], int n);
