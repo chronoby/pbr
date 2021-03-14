@@ -1,4 +1,5 @@
 #include "math.h"
+#include "geometry.h"
 
 class Transform
 {
@@ -14,6 +15,9 @@ public:
     Transform Transform::rotateY(float theta);
     Transform Transform::rotateZ(float theta);
     
+    Point3f operator()(const Point3f& p) const;
+    Bounds operator()(const Bounds &b) const;
+
 private:
     Matrix4f m;
     Matrix4f mInv;

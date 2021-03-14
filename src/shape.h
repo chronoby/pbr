@@ -1,3 +1,6 @@
+#ifndef SHAPE_H_
+#define SHAPE_H_
+
 #include "transform.h"
 #include "geometry.h"
 
@@ -9,8 +12,13 @@ public:
         reverseOrientation(reverse) { }
 
     virtual Bounds ObjectBound() const = 0;
+
+    Bounds WorldBound() const { return (*ObjectToWorld)(ObjectBound()); }
+    // P157
 private:
     Transform *ObjectToWorld, *WorldToObject;
     bool reverseOrientation;
     bool transformSwapHandedness;
 };
+
+#endif
